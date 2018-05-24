@@ -118,7 +118,7 @@ int main() {
 
 
             for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) {
-                if (inputString == it->first) { // theCustomers[i]->getCustomerNumber()
+                if (inputString == it->first) { // it->second->getCustomerNumber()
                     theOrders[numOrders - 1]->setOrderCustomer(it->second);
                 } //if
             } //for
@@ -138,17 +138,18 @@ int main() {
     std::cout << "Customer/Order Report" << endl;
     std::cout << "=================================" << endl;
 
-    for (int i = 0; i < numCustomers; i++) { //Main loop goes through each customer
-        double totalOrders = 0.0; // To track the sum of the orders for each customer
+
+    for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) { //Main loop goes through each customer
+        double totalOrders = 0.0; // To track the sum of the orders for each customer int i = 0; i < numCustomers; i++
         std::cout << setw(15) << "Cust ID" << setw(30) << "Name" << setw(60)
                 << "Cust Email" << setw(15) << "Cust Date" << endl;
         std::cout << setw(15) << "-------" << setw(30) << "----" << setw(60)
                 << "----------" << setw(15) << "---------" << endl; // Customer Header
 
-        std::cout << setw(15) << theCustomers[i]->getCustomerNumber() << setw(30)
-                << theCustomers[i]->getCustomerName() << setw(60)
-                << theCustomers[i]->getEmail() << setw(15)
-                << theCustomers[i]->getDateJoined().getStringDate() << endl
+        std::cout << setw(15) << it->second->getCustomerNumber() << setw(30)
+                << it->second->getCustomerName() << setw(60)
+                << it->second->getEmail() << setw(15)
+                << it->second->getDateJoined().getStringDate() << endl
                 << endl; //Cust Info
 
         std::cout << setw(20) << "Order ID" << setw(30) << "Order Date" << setw(20)
@@ -156,7 +157,7 @@ int main() {
         std::cout << setw(20) << "-------" << setw(30) << "---------" << setw(20)
                 << "----------" << setw(15) << "--------" << endl; // Order Header
         for (int j = 0; j < numOrders; j++) { //Inner loop goes through each order
-            if (theCustomers[i]->getCustomerNumber()
+            if (it->second->getCustomerNumber()
                     == theOrders[j]->getOrderCustomer().getCustomerNumber()) {
 
                 std::cout << setw(20) << theOrders[j]->getOrderNumber() << setw(30)
@@ -179,8 +180,8 @@ int main() {
     // ------------------END OF REPORT-------------------------------------
 
     // ------------------DELETION-------------------------------------------
-    for (int i = 0; i < numCustomers; i++) {
-        delete theCustomers[i];
+    for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) {
+        delete it->second;
     } //for
     for (int i = 0; i < numOrders; i++) {
         delete theOrders[i];
