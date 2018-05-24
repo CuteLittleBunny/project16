@@ -10,16 +10,42 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
+#include <map>
 #include "Date.hpp"
 #include "Customer.hpp"
 #include "Order.hpp"
 
+namespace bryce {
+
+class Order {
+public:
+    Order();
+    virtual ~Order();
+    void setOrderNumber(string); //setters
+    void setOrderDate(Date);
+    void setOrderTotal(double);
+    void setOrderCustomer(Customer*);
+    string getOrderNumber(void); //getters
+    Date getOrderDate(void);
+    double getOrderTotal(void);
+    Customer getOrderCustomer(void);
+private:
+    string orderNumber;
+    Date orderDate;
+    double orderTotal;
+    Customer *orderCustomer;
+};
+
+}
 
 int main() {
 
-    vector<Customer*> theCustomers;
+    std::map<string,Customer*> CustomerMap;
+    std::map<string,Customer*>:: iterator it;
+    //vector<Customer*> theCustomers;
     vector<Order*> theOrders;
-    string inputString; //CustomerNumber, inputString2//CustomerName, inputString3//email;
+    string inputString;//inputString2//CustomerName, inputString3//email;
+    string inputCustNum;
     int inputInt1, inputInt2, inputInt3; // Year-1/Month-2/Day-3
     int numCustomers = 0; //Counter to fill the customer vector.
     int numOrders = 0; //Counter to fill the order vector.
@@ -31,17 +57,20 @@ int main() {
 
     if (!customerFile.fail()) {
         while (!customerFile.eof()) { //Fill theCustomers vector from the CustomerFile.txt
-
-            theCustomers.push_back(new Customer());
+            Customer *tempCustomer = new Customer();
+           // theCustomers.push_back(new Customer());
             numCustomers++;
             customerFile >> inputString; //Set the cust Number
-            theCustomers[numCustomers - 1]->setCustomerNumber(inputString);
+            tempCustomer->setCustomerNumber(inputString);
+           // theCustomers[numCustomers - 1]->setCustomerNumber(inputString);
 
             customerFile >> inputString; //Set the cust Name
-            theCustomers[numCustomers - 1]->setCustomerName(inputString);
+            tempCustomer->setCustomerName(inputString);
+            //theCustomers[numCustomers - 1]->setCustomerName(inputString);
 
             customerFile >> inputString; //Set the cust Email
-            theCustomers[numCustomers - 1]->setEmail(inputString);
+            tempCustomer->setEmail(inputString);
+            //theCustomers[numCustomers - 1]->setEmail(inputString);
 
             customerFile >> inputInt1; //year //Set the cust DateJoined
             customerFile >> inputInt2; //month
@@ -51,14 +80,16 @@ int main() {
             tempDate.setMonth(inputInt2);
             tempDate.setDay(inputInt3);
 
-            theCustomers[numCustomers - 1]->setDateJoined(tempDate);
+            tempCustomer->setDateJoined(tempDate);
+            //theCustomers[numCustomers - 1]->setDateJoined(tempDate);
+            CustomerMap[tempCustomer->getCustomerNumber()] = tempCustomer;
 
         } //while
         customerFile.close();
 
     } //if
     else {
-        cout << "Error opening Customer File." << endl;
+        std::cout << "Error opening Customer File." << endl;
     } //else
 
     customerFile.close();
@@ -84,9 +115,11 @@ int main() {
             theOrders[numOrders - 1]->setOrderDate(tempDate);
 
             orderFile >> inputString; //Match the customerId from orderfile to existing customers in theCustomers Vector.
-            for (int i = 0; i < numCustomers; i++) {
-                if (inputString == theCustomers[i]->getCustomerNumber()) {
-                    theOrders[numOrders - 1]->setOrderCustomer(theCustomers[i]);
+
+
+            for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) {
+                if (inputString == it->first) { // theCustomers[i]->getCustomerNumber()
+                    theOrders[numOrders - 1]->setOrderCustomer(it->second);
                 } //if
             } //for
 
@@ -95,52 +128,54 @@ int main() {
 
     } //if
     else {
-        cout << "Error opening Order File." << endl;
+        std::cout << "Error opening Order File." << endl;
     } //else
     orderFile.close();
     //-----------------------------END OF FILLING OUT INFORMATION---------------------------------------------------------------------------------
 
     //-----------------------------Print Report---------------------------------------------------------------------------------------------------
 
-    cout << "Customer/Order Report" << endl;
-    cout << "=================================" << endl;
+    std::cout << "Customer/Order Report" << endl;
+    std::cout << "=================================" << endl;
 
     for (int i = 0; i < numCustomers; i++) { //Main loop goes through each customer
         double totalOrders = 0.0; // To track the sum of the orders for each customer
-        cout << setw(15) << "Cust ID" << setw(30) << "Name" << setw(60)
+        std::cout << setw(15) << "Cust ID" << setw(30) << "Name" << setw(60)
                 << "Cust Email" << setw(15) << "Cust Date" << endl;
-        cout << setw(15) << "-------" << setw(30) << "----" << setw(60)
+        std::cout << setw(15) << "-------" << setw(30) << "----" << setw(60)
                 << "----------" << setw(15) << "---------" << endl; // Customer Header
 
-        cout << setw(15) << theCustomers[i]->getCustomerNumber() << setw(30)
+        std::cout << setw(15) << theCustomers[i]->getCustomerNumber() << setw(30)
                 << theCustomers[i]->getCustomerName() << setw(60)
                 << theCustomers[i]->getEmail() << setw(15)
                 << theCustomers[i]->getDateJoined().getStringDate() << endl
                 << endl; //Cust Info
 
-        cout << setw(20) << "Order ID" << setw(30) << "Order Date" << setw(20)
+        std::cout << setw(20) << "Order ID" << setw(30) << "Order Date" << setw(20)
                 << "Order-Total" << setw(15) << "Customer" << endl;
-        cout << setw(20) << "-------" << setw(30) << "---------" << setw(20)
+        std::cout << setw(20) << "-------" << setw(30) << "---------" << setw(20)
                 << "----------" << setw(15) << "--------" << endl; // Order Header
         for (int j = 0; j < numOrders; j++) { //Inner loop goes through each order
             if (theCustomers[i]->getCustomerNumber()
                     == theOrders[j]->getOrderCustomer().getCustomerNumber()) {
 
-                cout << setw(20) << theOrders[j]->getOrderNumber() << setw(30)
+                std::cout << setw(20) << theOrders[j]->getOrderNumber() << setw(30)
                         << theOrders[j]->getOrderDate().getStringDate()
                         << setw(20) << theOrders[j]->getOrderTotal() << setw(15)
                         << theOrders[j]->getOrderCustomer().getCustomerName()
                         << endl; //Order Info
-                totalOrders+= theOrders[j]->getOrderTotal();
+                totalOrders += theOrders[j]->getOrderTotal();
             } //if
 
         } //for
-        cout << setw(70) << "----------" << endl;
-        cout << setw(45) << "Total Orders:" << setw(25) << setprecision(2) << fixed << totalOrders << endl << endl;
+        std::cout << setw(70) << "----------" << endl;
+        std::cout << setw(45) << "Total Orders:" << setw(25) << setprecision(2)
+                << fixed << totalOrders << endl << endl;
         grandTotal += totalOrders;
     } //for
-    cout << setw(45) << "Grand Total Orders:" << setw(25) << setprecision(2) << fixed << grandTotal << endl << endl;
-    cout << endl << endl;
+    std::cout << setw(45) << "Grand Total Orders:" << setw(25) << setprecision(2)
+            << fixed << grandTotal << endl << endl;
+    std::cout << endl << endl;
     // ------------------END OF REPORT-------------------------------------
 
     // ------------------DELETION-------------------------------------------
@@ -150,6 +185,6 @@ int main() {
     for (int i = 0; i < numOrders; i++) {
         delete theOrders[i];
     } //for
-    cout << "Program Ending, Have a nice day!" << endl; // prints Program Ending, Have a nice day!
+    std::cout << "Program Ending, Have a nice day!" << endl; // prints Program Ending, Have a nice day!
     return 0;
 }
