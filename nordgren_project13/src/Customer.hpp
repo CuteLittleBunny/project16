@@ -10,23 +10,23 @@
 #include <iostream>
 #include "Date.hpp"
 
-using namespace std;
+
 class Customer {
 public:
 	Customer(void);
 	virtual ~Customer(void);
-	string getCustomerNumber(void); //Getters
-	string getCustomerName(void);
-	string getEmail(void);
+	std::string getCustomerNumber(void); //Getters
+	std::string getCustomerName(void);
+	std::string getEmail(void);
 	Date getDateJoined(void);
-	void setCustomerNumber(string); //Setters
-	void setCustomerName(string);
-	void setEmail(string);
+	void setCustomerNumber(std::string); //Setters
+	void setCustomerName(std::string);
+	void setEmail(std::string);
 	void setDateJoined(Date);
 private:
-	string customerNumber;
-	string customerName;
-	string email;
+	std::string customerNumber;
+	std::string customerName;
+	std::string email;
 	Date dateJoined;
 };
 

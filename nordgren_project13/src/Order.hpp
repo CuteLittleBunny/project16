@@ -17,16 +17,16 @@ class Order {
 public:
 	Order();
 	virtual ~Order();
-	void setOrderNumber(string); //setters
+	void setOrderNumber(std::string); //setters
 	void setOrderDate(Date);
 	void setOrderTotal(double);
 	void setOrderCustomer(Customer*);
-	string getOrderNumber(void);//getters
+	std::string getOrderNumber(void);//getters
 	Date getOrderDate(void);
 	double getOrderTotal(void);
 	Customer getOrderCustomer(void);
 private:
-	string orderNumber;
+	std::string orderNumber;
 	Date orderDate;
 	double orderTotal;
 	Customer *orderCustomer;

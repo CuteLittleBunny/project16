@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-using namespace std;
+
 class Date {
 public:
 	Date();
@@ -21,7 +21,7 @@ public:
 	int getYear(void);//getters
 	int getMonth(void);
 	int getDay(void);
-	string getStringDate();
+	std::string getStringDate();
 private:
 	int year;
 	int month;

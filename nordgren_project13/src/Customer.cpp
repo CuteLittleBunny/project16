@@ -20,27 +20,27 @@ Customer::~Customer() {
 }
 
 //Getters
-string Customer::getCustomerNumber() {
+std::string Customer::getCustomerNumber() {
 	return customerNumber;
 }
 
-string Customer::getCustomerName(void) {
+std::string Customer::getCustomerName(void) {
 	return customerName;
 }
-string Customer::getEmail(void) {
+std::string Customer::getEmail(void) {
 	return email;
 }
 Date Customer::getDateJoined(void) {
 	return dateJoined;
 }
 //Setters
-void Customer::setCustomerNumber(string aString) {
+void Customer::setCustomerNumber(std::string aString) {
 	customerNumber = aString;
 }
-void Customer::setCustomerName(string aString) {
+void Customer::setCustomerName(std::string aString) {
 	customerName = aString;
 }
-void Customer::setEmail(string aString) {
+void Customer::setEmail(std::string aString) {
 	email = aString;
 }
 void Customer::setDateJoined(Date aDate) {

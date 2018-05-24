@@ -21,7 +21,7 @@ Order::~Order() {
 }
 
 
-void Order::setOrderNumber(string aString){
+void Order::setOrderNumber(std::string aString){
     orderNumber = aString;
 }
 
@@ -38,7 +38,7 @@ void Order::setOrderCustomer(Customer *aCustomer){
     orderCustomer = aCustomer;
 }
 
-string Order::getOrderNumber(){
+std::string Order::getOrderNumber(){
     return orderNumber;
 }
 

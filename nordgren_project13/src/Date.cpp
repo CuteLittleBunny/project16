@@ -42,7 +42,7 @@ void Date::setDay(int aDay){
     day = aDay;
 }
 
-string Date::getStringDate(){
-    string tempString = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+std::string Date::getStringDate(){
+    std::string tempString = std::to_string(month) + "/" + std::to_string(day) + "/" + std::to_string(year);
     return tempString;
 }
