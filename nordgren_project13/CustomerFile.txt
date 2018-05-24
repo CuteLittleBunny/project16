@@ -1,0 +1,3 @@
+cust01 Tom_Smith   cust01@gmail.com 2015 01 01
+cust02 John_Kerry  cust02@yahoo.com 2016 01 10
+cust03 Sally_Wiley sally@yahoo.com  2011 12 15
