@@ -4,6 +4,12 @@
 // Version     : 1.0
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
+//
+//I have had trouble with the namespace bryce thing.
+//I'm struggling to implement it properly.
+//
+//
+
 //============================================================================
 
 #include <iostream>
@@ -21,8 +27,8 @@ int main() {
     std::map<std::string, Customer*>::iterator cit; //cit means customer iterator
     //vector<Customer*> theCustomers;
     //vector<Order*> theOrders;
-    std::multimap<std::string, Order*> OrderMultiMap;
-    std::multimap<std::string, Order*>::iterator oit = OrderMultiMap.begin(); // oit means order iterator
+    std::multimap<std::string, bryce::Order*> OrderMultiMap;
+    std::multimap<std::string, bryce::Order*>::iterator oit = OrderMultiMap.begin(); // oit means order iterator
 
     std::string inputString; //inputString2//CustomerName, inputString3//email;
 
@@ -80,7 +86,7 @@ int main() {
     if (!orderFile.fail()) {
         while (!orderFile.eof()) {
             //theOrders.push_back(new Order());
-            Order *tempOrder = new Order();
+            bryce::Order *tempOrder = new Order();
             numOrders++;
 
             orderFile >> inputString; //Order Number

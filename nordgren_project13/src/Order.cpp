@@ -7,7 +7,9 @@
 
 #include "Order.hpp"
 
-Order::Order() {
+
+
+bryce::Order::Order() {
     orderNumber = "00000000000";
     orderTotal = 0.0;
     orderDate = Date();
@@ -16,40 +18,42 @@ Order::Order() {
 
 }
 
-Order::~Order() {
+bryce::Order::~Order() {
 
 }
 
 
-void Order::setOrderNumber(std::string aString){
+void bryce::Order::setOrderNumber(std::string aString){
     orderNumber = aString;
 }
 
-void Order::setOrderTotal(double aDouble){
+void bryce::Order::setOrderTotal(double aDouble){
     orderTotal = aDouble;
 }
 
-void Order::setOrderDate(Date aDate){
+void bryce::Order::setOrderDate(Date aDate){
     orderDate = aDate;
 }
 
-void Order::setOrderCustomer(Customer *aCustomer){
+void bryce::Order::setOrderCustomer(Customer *aCustomer){
     delete orderCustomer;
     orderCustomer = aCustomer;
 }
 
-std::string Order::getOrderNumber(){
+std::string bryce::Order::getOrderNumber(){
     return orderNumber;
 }
 
-double Order::getOrderTotal(){
+double bryce::Order::getOrderTotal(){
     return orderTotal;
 }
 
-Date Order::getOrderDate(){
+Date bryce::Order::getOrderDate(){
     return orderDate;
 }
 
-Customer Order::getOrderCustomer(){
+Customer bryce::Order::getOrderCustomer(){
     return *orderCustomer;
 }
+
+
