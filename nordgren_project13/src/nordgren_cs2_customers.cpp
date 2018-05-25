@@ -22,7 +22,7 @@ int main() {
     //vector<Customer*> theCustomers;
     //vector<Order*> theOrders;
     std::multimap<std::string, Order*> OrderMultiMap;
-    std::multimap<std::string, Order*>::iterator oit; // oit means order iterator
+    std::multimap<std::string, Order*>::iterator oit = OrderMultiMap.begin(); // oit means order iterator
 
     std::string inputString; //inputString2//CustomerName, inputString3//email;
 
@@ -31,7 +31,7 @@ int main() {
     int numCustomers = 0; //Counter to fill the customer vector.
     int numOrders = 0; //Counter to fill the order vector.
     double inputDouble; //ordertotal
-    double grandTotal = 0; //Tracks the sum of all order totals.
+    //double grandTotal = 0; //Tracks the sum of all order totals.
     std::ifstream customerFile;
     customerFile.open("CustomerFile.txt");
     //Customer Vector processing.
@@ -108,7 +108,8 @@ int main() {
             } //for
 
             inputString = tempOrder->getOrderCustomer().getCustomerNumber();
-            OrderMultiMap[inputString] = tempOrder;
+            //OrderMultiMap.insert(inputString, tempOrder);
+            OrderMultiMap.insert(std::make_pair(inputString, tempOrder));
 
         } //while
         orderFile.close();
@@ -148,6 +149,9 @@ int main() {
                         << std::setw(15)
                         << cit->second->getDateJoined().getStringDate()
                         << std::endl << std::endl; //Cust Info
+
+            }
+            else{
 
             }
         }
