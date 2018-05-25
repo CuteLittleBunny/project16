@@ -101,7 +101,6 @@ int main() {
             tempDate.setYear(inputInt1);
             tempDate.setMonth(inputInt2);
             tempDate.setDay(inputInt3);
-            // theOrders[numOrders - 1]->setOrderDate(tempDate);
             tempOrder->setOrderDate(tempDate);
 
             orderFile >> inputString; //Match the customerId from orderfile to existing customers in CustomerMap map.
