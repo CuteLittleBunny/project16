@@ -25,6 +25,7 @@ int main() {
     //vector<Order*> theOrders;
     std::multimap<std::string,Order*> OrderMultiMap;
     std::multimap<std::string,Order*>:: iterator oit; // oit means order iterator
+
     std::string inputString; //inputString2//CustomerName, inputString3//email;
 
     std::string inputCustNum;
@@ -110,7 +111,8 @@ int main() {
                 } //if
             } //for
 
-            OrderMultiMap[tempOrder->getOrderCustomer().getCustomerNumber()] = tempOrder;
+            inputString = tempOrder->getOrderCustomer().getCustomerNumber();
+            OrderMultiMap[inputString] = tempOrder;
 
         } //while
         orderFile.close();
