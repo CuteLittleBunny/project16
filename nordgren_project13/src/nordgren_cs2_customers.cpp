@@ -37,10 +37,9 @@ int main() {
     int numCustomers = 0; //Counter to fill the customer vector.
     int numOrders = 0; //Counter to fill the order vector.
     double inputDouble; //ordertotal
-   // double grandTotal = 0; //Tracks the sum of all order totals.
     std::ifstream customerFile;
     customerFile.open("CustomerFile.txt");
-    //Customer Vector processing.
+    //Customer Map processing.
 
     if (!customerFile.fail()) {
         while (!customerFile.eof()) { //Fill theCustomers vector from the CustomerFile.txt
