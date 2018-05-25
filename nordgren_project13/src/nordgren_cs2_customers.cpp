@@ -101,7 +101,7 @@ int main() {
             tempOrder->setOrderDate(tempDate);
 
 
-            orderFile >> inputString; //Match the customerId from orderfile to existing customers in theCustomers Vector.
+            orderFile >> inputString; //Match the customerId from orderfile to existing customers in CustomerMap map.
 
 
             for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) {
