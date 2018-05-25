@@ -26,6 +26,7 @@ int main() {
     std::multimap<std::string,Order*> OrderMultiMap;
     std::multimap<std::string,Order*>:: iterator oit; // oit means order iterator
     std::string inputString; //inputString2//CustomerName, inputString3//email;
+
     std::string inputCustNum;
     int inputInt1, inputInt2, inputInt3; // Year-1/Month-2/Day-3
     int numCustomers = 0; //Counter to fill the customer vector.
@@ -87,7 +88,8 @@ int main() {
             //theOrders[numOrders - 1]->setOrderNumber(inputString);
             tempOrder->setOrderNumber(inputString);
             orderFile >> inputDouble; //Order Double
-            theOrders[numOrders - 1]->setOrderTotal(inputDouble);
+            //theOrders[numOrders - 1]->setOrderTotal(inputDouble);
+            tempOrder->setOrderTotal(inputDouble);
             orderFile >> inputInt1; //year //Set the order Date
             orderFile >> inputInt2; //month
             orderFile >> inputInt3; //day
@@ -95,16 +97,20 @@ int main() {
             tempDate.setYear(inputInt1);
             tempDate.setMonth(inputInt2);
             tempDate.setDay(inputInt3);
-            theOrders[numOrders - 1]->setOrderDate(tempDate);
+           // theOrders[numOrders - 1]->setOrderDate(tempDate);
+            tempOrder->setOrderDate(tempDate);
+
 
             orderFile >> inputString; //Match the customerId from orderfile to existing customers in theCustomers Vector.
 
 
             for (it = CustomerMap.begin(); it != CustomerMap.end(); ++it) {
                 if (inputString == it->first) { // it->second->getCustomerNumber()
-                    theOrders[numOrders - 1]->setOrderCustomer(it->second);
+                    tempOrder->setOrderCustomer(it->second);
                 } //if
             } //for
+
+            OrderMultiMap[tempOrder->getOrderCustomer().getCustomerNumber()] = tempOrder;
 
         } //while
         orderFile.close();
