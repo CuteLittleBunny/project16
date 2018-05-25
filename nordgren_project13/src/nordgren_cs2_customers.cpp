@@ -31,7 +31,7 @@ int main() {
     int numCustomers = 0; //Counter to fill the customer vector.
     int numOrders = 0; //Counter to fill the order vector.
     double inputDouble; //ordertotal
-    //double grandTotal = 0; //Tracks the sum of all order totals.
+   // double grandTotal = 0; //Tracks the sum of all order totals.
     std::ifstream customerFile;
     customerFile.open("CustomerFile.txt");
     //Customer Vector processing.
@@ -133,10 +133,12 @@ int main() {
 
         if (inputString == "END" || inputString == "end") {
             keepgoing = false;
-        } else {
+        } //if
+        else {
             cit = CustomerMap.find(inputString);
             if (cit != CustomerMap.end()) {
                 std::cout << std::setw(15) << "Cust ID" << std::setw(30)
+                        //cust info start
                         << "Name" << std::setw(60) << "Cust Email"
                         << std::setw(15) << "Cust Date" << std::endl;
                 std::cout << std::setw(15) << "-------" << std::setw(30)
@@ -148,67 +150,92 @@ int main() {
                         << std::setw(60) << cit->second->getEmail()
                         << std::setw(15)
                         << cit->second->getDateJoined().getStringDate()
-                        << std::endl << std::endl; //Cust Info
+                        << std::endl << std::endl; //Cust Info end
 
-            }
-            else{
+                std::cout << std::setw(20) << "Order ID" << std::setw(30)
+                        << "Order Date" << std::setw(20) << "Order-Total"
+                        << std::setw(15) << "Customer" << std::endl;
+                std::cout << std::setw(20) << "-------" << std::setw(30)
+                        << "---------" << std::setw(20) << "----------"
+                        << std::setw(15) << "--------" << std::endl; // Order Header
 
-            }
-        }
+                for (oit = OrderMultiMap.begin(); oit != OrderMultiMap.end();
+                        ++oit) { //Inner loop goes through each order
+                    if (cit->second->getCustomerNumber()
+                            == oit->second->getOrderCustomer().getCustomerNumber()) {
 
-    }
+                        std::cout << std::setw(20)
+                                << oit->second->getOrderNumber()
+                                << std::setw(30)
+                                << oit->second->getOrderDate().getStringDate()
+                                << std::setw(20) << oit->second->getOrderTotal()
+                                << std::setw(15)
+                                << oit->second->getOrderCustomer().getCustomerName()
+                                << std::endl; //Order Info
+                    } //if
 
- /*   std::cout << "Customer/Order Report" << std::endl;
-    std::cout << "=================================" << std::endl;
+                } //for
 
-    for (cit = CustomerMap.begin(); cit != CustomerMap.end(); ++cit) { //Main loop goes through each customer
-        double totalOrders = 0.0; // To track the sum of the orders for each customer int i = 0; i < numCustomers; i++
-        std::cout << std::setw(15) << "Cust ID" << std::setw(30) << "Name"
-                << std::setw(60) << "Cust Email" << std::setw(15) << "Cust Date"
-                << std::endl;
-        std::cout << std::setw(15) << "-------" << std::setw(30) << "----"
-                << std::setw(60) << "----------" << std::setw(15) << "---------"
-                << std::endl; // Customer Header
-
-        std::cout << std::setw(15) << cit->second->getCustomerNumber()
-                << std::setw(30) << cit->second->getCustomerName()
-                << std::setw(60) << cit->second->getEmail() << std::setw(15)
-                << cit->second->getDateJoined().getStringDate() << std::endl
-                << std::endl; //Cust Info
-
-        std::cout << std::setw(20) << "Order ID" << std::setw(30)
-                << "Order Date" << std::setw(20) << "Order-Total"
-                << std::setw(15) << "Customer" << std::endl;
-        std::cout << std::setw(20) << "-------" << std::setw(30) << "---------"
-                << std::setw(20) << "----------" << std::setw(15) << "--------"
-                << std::endl; // Order Header
-        for (oit = OrderMultiMap.begin(); oit != OrderMultiMap.end(); ++oit) { //Inner loop goes through each order
-            if (cit->second->getCustomerNumber()
-                    == oit->second->getOrderCustomer().getCustomerNumber()) {
-
-                std::cout << std::setw(20) << oit->second->getOrderNumber()
-                        << std::setw(30)
-                        << oit->second->getOrderDate().getStringDate()
-                        << std::setw(20) << oit->second->getOrderTotal()
-                        << std::setw(15)
-                        << oit->second->getOrderCustomer().getCustomerName()
-                        << std::endl; //Order Info
-                totalOrders += oit->second->getOrderTotal();
             } //if
+            else {
+                std::cout << inputString << " was not found!" << std::endl;
 
-        } //for
-        std::cout << std::setw(70) << "----------" << std::endl;
-        std::cout << std::setw(45) << "Total Orders:" << std::setw(25)
-                << std::setprecision(2) << std::fixed << totalOrders
-                << std::endl << std::endl;
-        grandTotal += totalOrders;
-    } //for
-    std::cout << std::setw(45) << "Grand Total Orders:" << std::setw(25)
-            << std::setprecision(2) << std::fixed << grandTotal << std::endl
-            << std::endl;
-    std::cout << std::endl << std::endl;
-    // ------------------END OF REPORT-------------------------------------
-*/
+            } //else
+        } //else
+
+    } //while
+
+    /*   std::cout << "Customer/Order Report" << std::endl;
+     std::cout << "=================================" << std::endl;
+
+     for (cit = CustomerMap.begin(); cit != CustomerMap.end(); ++cit) { //Main loop goes through each customer
+     double totalOrders = 0.0; // To track the sum of the orders for each customer int i = 0; i < numCustomers; i++
+     std::cout << std::setw(15) << "Cust ID" << std::setw(30) << "Name"
+     << std::setw(60) << "Cust Email" << std::setw(15) << "Cust Date"
+     << std::endl;
+     std::cout << std::setw(15) << "-------" << std::setw(30) << "----"
+     << std::setw(60) << "----------" << std::setw(15) << "---------"
+     << std::endl; // Customer Header
+
+     std::cout << std::setw(15) << cit->second->getCustomerNumber()
+     << std::setw(30) << cit->second->getCustomerName()
+     << std::setw(60) << cit->second->getEmail() << std::setw(15)
+     << cit->second->getDateJoined().getStringDate() << std::endl
+     << std::endl; //Cust Info
+
+     std::cout << std::setw(20) << "Order ID" << std::setw(30)
+     << "Order Date" << std::setw(20) << "Order-Total"
+     << std::setw(15) << "Customer" << std::endl;
+     std::cout << std::setw(20) << "-------" << std::setw(30) << "---------"
+     << std::setw(20) << "----------" << std::setw(15) << "--------"
+     << std::endl; // Order Header
+     for (oit = OrderMultiMap.begin(); oit != OrderMultiMap.end(); ++oit) { //Inner loop goes through each order
+     if (cit->second->getCustomerNumber()
+     == oit->second->getOrderCustomer().getCustomerNumber()) {
+
+     std::cout << std::setw(20) << oit->second->getOrderNumber()
+     << std::setw(30)
+     << oit->second->getOrderDate().getStringDate()
+     << std::setw(20) << oit->second->getOrderTotal()
+     << std::setw(15)
+     << oit->second->getOrderCustomer().getCustomerName()
+     << std::endl; //Order Info
+     totalOrders += oit->second->getOrderTotal();
+     } //if
+
+     } //for
+     std::cout << std::setw(70) << "----------" << std::endl;
+     std::cout << std::setw(45) << "Total Orders:" << std::setw(25)
+     << std::setprecision(2) << std::fixed << totalOrders
+     << std::endl << std::endl;
+     grandTotal += totalOrders;
+     } //for
+     std::cout << std::setw(45) << "Grand Total Orders:" << std::setw(25)
+     << std::setprecision(2) << std::fixed << grandTotal << std::endl
+     << std::endl;
+     std::cout << std::endl << std::endl;
+     // ------------------END OF REPORT-------------------------------------
+     */
     // ------------------DELETION-------------------------------------------
     for (cit = CustomerMap.begin(); cit != CustomerMap.end(); ++cit) {
         delete cit->second;
