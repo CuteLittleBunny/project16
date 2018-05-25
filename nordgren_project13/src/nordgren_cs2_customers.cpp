@@ -127,14 +127,34 @@ int main() {
     while (keepgoing) {
         std::cout
                 << "Please enter the customer ID for the customer you would like to find!"
-                << std::endl;
-        std::getline (std::cin,inputString);
+                << "Type END to exit" << std::endl;
+        std::getline(std::cin, inputString);
 
-        cit = find(inputString);
+        if (inputString == "END" || inputString == "end") {
+            keepgoing = false;
+        } else {
+            cit = CustomerMap.find(inputString);
+            if (cit != CustomerMap.end()) {
+                std::cout << std::setw(15) << "Cust ID" << std::setw(30)
+                        << "Name" << std::setw(60) << "Cust Email"
+                        << std::setw(15) << "Cust Date" << std::endl;
+                std::cout << std::setw(15) << "-------" << std::setw(30)
+                        << "----" << std::setw(60) << "----------"
+                        << std::setw(15) << "---------" << std::endl; // Customer Header
+
+                std::cout << std::setw(15) << cit->second->getCustomerNumber()
+                        << std::setw(30) << cit->second->getCustomerName()
+                        << std::setw(60) << cit->second->getEmail()
+                        << std::setw(15)
+                        << cit->second->getDateJoined().getStringDate()
+                        << std::endl << std::endl; //Cust Info
+
+            }
+        }
 
     }
 
-    std::cout << "Customer/Order Report" << std::endl;
+ /*   std::cout << "Customer/Order Report" << std::endl;
     std::cout << "=================================" << std::endl;
 
     for (cit = CustomerMap.begin(); cit != CustomerMap.end(); ++cit) { //Main loop goes through each customer
@@ -184,7 +204,7 @@ int main() {
             << std::endl;
     std::cout << std::endl << std::endl;
     // ------------------END OF REPORT-------------------------------------
-
+*/
     // ------------------DELETION-------------------------------------------
     for (cit = CustomerMap.begin(); cit != CustomerMap.end(); ++cit) {
         delete cit->second;
